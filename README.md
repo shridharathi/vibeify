@@ -3,18 +3,21 @@
 This webapp leverages OpenAI and Spotify APIs to transform any inputted image into a Spotify playlist which fits the "vibe" of the image.
 
 
-Setup
+# Setup
 
 Create .env file in root directory
 
 `OPENAI_API_KEY=<YOUR API KEY>`
+
 `CLIENT_ID=<YOUR SPOTIFY CLIENT ID>`
+
 `CLIENT_SECRET=<YOUR SPOTIFY CLIENT SECRET>`
 
 
 Create Virtual Environment 
 
 `python3 -m venv venv`
+
 `source venv/bin/activate`
 
 
