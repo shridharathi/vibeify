@@ -3,6 +3,7 @@
 
 This webapp leverages OpenAI and Spotify APIs to transform any inputted image into a Spotify playlist which fits the "vibe" of the image.
 
+![Example Image](landing_page.png)
 
 # Setup
 
