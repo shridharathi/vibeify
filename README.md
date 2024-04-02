@@ -1,9 +1,13 @@
 # Vibeify
 
+<br /> 
+
 This webapp leverages OpenAI and Spotify APIs to transform any inputted image into a Spotify playlist which fits the "vibe" of the image.
 
 
 # Setup
+
+<br /> 
 
 Create .env file in root directory
 
@@ -33,8 +37,7 @@ Launch Backend Server
 
 `python3 server/main.py` <br /> 
 
-
-
+<br />
 
 Launch Frontend Client
 
