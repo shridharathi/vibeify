@@ -14,6 +14,8 @@ Create .env file in root directory
 `CLIENT_SECRET=<YOUR SPOTIFY CLIENT SECRET>`
 
 
+
+
 Create Virtual Environment 
 
 `python3 -m venv venv`
@@ -21,14 +23,20 @@ Create Virtual Environment
 `source venv/bin/activate`
 
 
+
+
 Install Python dependencies
 
 `pip install -r requirements.txt`
 
 
+
+
 Launch Backend Server
 
 `python3 server/main.py`
+
+
 
 
 Launch Frontend Client
