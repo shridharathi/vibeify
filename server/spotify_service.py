@@ -108,7 +108,7 @@ def uris_to_playlist(uris, token, image_data):
         "name": playlist_name,
         "public": False  # Change to True if you want the playlist to be public
     }
-
+    print(f"TOKEN: {token}")
     sp = spotipy.Spotify(auth=token)
     user_id = sp.current_user()['id']
     print(user_id)

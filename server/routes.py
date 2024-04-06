@@ -64,20 +64,32 @@ def get_token():
         raise HTTPException(status_code=401, detail="User not logged in")
     # Check if the token is expired and refresh it if necessary
     now = int(time.time())
-    is_expired = app.token_info['expires_at'] - now < 60
+    is_expired = app.token_info['expires_in'] - now < 60
     if is_expired:
-        spotify_oauth = create_spotify_oauth()
-        app.token_info = spotify_oauth.refresh_access_token(app.token_info['refresh_token'])
+        data = {
+            'grant_type': 'refresh_token',
+            'refresh_token': app.token_info['refresh_token'],
+            'client_id': CLIENT_ID,
+            'client_secret': CLIENT_SECRET
+        }
+
+        response = requests.post(TOKEN_URL, data=data)
+        response.raise_for_status()
+
+        token_data = response.json()
+        app.token_info = token_data
+        #spotify_oauth = create_spotify_oauth()
+        #app.token_info = spotify_oauth.refresh_access_token(app.token_info['refresh_token'])
     return app.token_info['access_token']
 
 
 
 @app.get("/login")
 async def login():
-    auth_url = create_spotify_oauth().get_authorize_url()
-    return RedirectResponse(auth_url)
+    #auth_url = create_spotify_oauth().get_authorize_url()
+    #return RedirectResponse(auth_url)
 
-    """
+    
     scope = "streaming user-read-email user-read-private user-library-read user-library-modify user-read-playback-state user-modify-playback-state playlist-modify-public playlist-modify-private ugc-image-upload"
 
     params = {
@@ -90,7 +102,7 @@ async def login():
 
     auth_url = AUTH_URL + urlencode(params)
     return RedirectResponse(auth_url)
-    """
+    
 
 
 @app.get("/callback")
@@ -101,10 +113,27 @@ async def callback(request: Request):
     if not code:
         raise HTTPException(status_code=400, detail="Authorization code not provided")
     # Exchange the authorization code for an access token and refresh token
+
+    """
     token_info = create_spotify_oauth().get_access_token(code)
     app.token_info = token_info
+    print(token_info)
 
     redirect_url = 'http://localhost:3000/handle-input?access_token=True'
+    """
+
+    data = {
+        'grant_type': 'authorization_code',
+        'code': code,
+        'redirect_uri': REDIRECT_URL,
+        'client_id': CLIENT_ID,
+        'client_secret': CLIENT_SECRET
+    }
+    token_response = requests.post(TOKEN_URL, data=data)
+    token_data = token_response.json()
+    app.token_info = token_data
+    redirect_url = 'http://localhost:3000/handle-input?access_token=True'
+
     return RedirectResponse(url=redirect_url)
  
 
