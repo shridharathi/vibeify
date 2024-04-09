@@ -132,7 +132,8 @@ async def callback(request: Request):
     token_response = requests.post(TOKEN_URL, data=data)
     token_data = token_response.json()
     app.token_info = token_data
-    redirect_url = 'http://localhost:3000/handle-input?access_token=True'
+    #redirect_url = 'http://localhost:3000/handle-input?access_token=True'
+    redirect_url = 'http://vibeify.netlify.app/handle-input?access_token=True'
 
     return RedirectResponse(url=redirect_url)
  
